@@ -10,3 +10,4 @@ public class ScheduleRequestDto {
     private String title;
     private String content;
 }
+

@@ -12,16 +12,16 @@ import java.time.LocalDateTime;
 public class User {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+   // @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false)
+  //  @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+   // @Column(nullable = false)
     private String content;
 
     private LocalDateTime createdDate;
