@@ -1,14 +1,39 @@
 package com.sparta.scheduleserver.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.sparta.scheduleserver.dto.ScheduleRequestDto;
+import com.sparta.scheduleserver.dto.ScheduleResponseDto;
+import com.sparta.scheduleserver.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/schedule")
 public class UserController {
 
-    private final Userservice userservice;
+    private final UserService userService;
 
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
+    @PostMapping
+    public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto requestDto) {
+        ScheduleResponseDto responseDto = userService.createSchedule(requestDto);
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+    }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ScheduleResponseDto> getSchedule(@PathVariable long id) {
+        ScheduleResponseDto responseDto = userService.getScheduleById(id);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ScheduleResponseDto> updateSchedule(
+            @PathVariable long id,
+            @RequestBody ScheduleRequestDto requestDto) {
+        ScheduleResponseDto responseDto = userService.updateSchedule(id, requestDto);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
 }
