@@ -4,6 +4,7 @@ import com.sparta.scheduleserver.dto.ScheduleRequestDto;
 import com.sparta.scheduleserver.dto.ScheduleResponseDto;
 import com.sparta.scheduleserver.entity.User;
 import com.sparta.scheduleserver.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.reactive.TransactionalOperator;
@@ -11,13 +12,10 @@ import org.springframework.transaction.reactive.TransactionalOperator;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     public ScheduleResponseDto getScheduleById(long id) {
         Optional<User> userOptional = userRepository.findById(id);
@@ -27,6 +25,8 @@ public class UserService {
             throw new RuntimeException("유저의 아이디를 찾을 수 없습니다.: " + id);
         }
     }
+
+
     @Transactional
     public ScheduleResponseDto createSchedule(ScheduleRequestDto requestDto) {
         User user = new User(

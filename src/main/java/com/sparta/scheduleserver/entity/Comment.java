@@ -1,44 +1,40 @@
 package com.sparta.scheduleserver.entity;
 
+import com.sparta.scheduleserver.controller.CommentController;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Table(name = "user")
-@NoArgsConstructor
-public class User {
+@Table(name = "comment")
+@RequiredArgsConstructor
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long commentId;
 
     @Column(nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false)
-    private String title;
-
-    @Column(nullable = false)
-    private String content;
+    private String commentContent;
 
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 
-    public User(String username, String title, String content) {
+    public Comment(String username, String commentContent){
         this.username = username;
-        this.title = title;
-        this.content = content;
+        this.commentContent = commentContent;
         this.createdDate = LocalDateTime.now();
         this.updatedDate = LocalDateTime.now();
     }
 
-    public void update(String title, String content) {
-        this.title = title;
-        this.content = content;
+    public void update(String commentContent) {
+        this.commentContent = commentContent;
         this.updatedDate = LocalDateTime.now();
     }
 }

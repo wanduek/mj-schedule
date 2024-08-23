@@ -3,19 +3,17 @@ package com.sparta.scheduleserver.controller;
 import com.sparta.scheduleserver.dto.ScheduleRequestDto;
 import com.sparta.scheduleserver.dto.ScheduleResponseDto;
 import com.sparta.scheduleserver.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/schedule")
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @PostMapping
     public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto requestDto) {
