@@ -5,18 +5,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
-@Table(name = "user")
+@Table(name = "schedule")
 @NoArgsConstructor
-public class User {
+public class Schedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String username;
 
     @Column(nullable = false)
@@ -28,7 +30,10 @@ public class User {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 
-    public User(String username, String title, String content) {
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
+
+    public Schedule(String username, String title, String content) {
         this.username = username;
         this.title = title;
         this.content = content;
@@ -40,5 +45,17 @@ public class User {
         this.title = title;
         this.content = content;
         this.updatedDate = LocalDateTime.now();
+    }
+
+    // 댓글 추가 메서드
+    public void addComment(Comment comment){
+        comments.add(comment);
+        comment.setSchedule(this);
+    }
+
+    // 댓글 제거 메서드
+    public void removeComment(Comment comment){
+        comments.remove(comment);
+        comment.setSchedule(null);
     }
 }

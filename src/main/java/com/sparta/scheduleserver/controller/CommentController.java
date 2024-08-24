@@ -1,6 +1,5 @@
 package com.sparta.scheduleserver.controller;
 
-
 import com.sparta.scheduleserver.dto.CommentRequestDto;
 import com.sparta.scheduleserver.dto.CommentResponseDto;
 import com.sparta.scheduleserver.service.CommentService;
@@ -16,33 +15,33 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    //일정 등록
+    // 댓글 등록
     @PostMapping
-    public ResponseEntity<CommentResponseDto> createComment(@RequestBody CommentRequestDto requestDto){
+    public ResponseEntity<CommentResponseDto> createComment(
+            @RequestBody CommentRequestDto requestDto) {
         CommentResponseDto responseDto = commentService.createComment(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
-    //일정 조회 단건
+    // 댓글 조회 단건
     @GetMapping("/{id}")
-    public ResponseEntity<CommentResponseDto> getComment(@PathVariable("id") long commentId){
+    public ResponseEntity<CommentResponseDto> getComment(@PathVariable("id") long commentId) {
         CommentResponseDto responseDto = commentService.getCommentById(commentId);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-
-    //일정 수정
+    // 댓글 수정
     @PutMapping("/{id}")
     public ResponseEntity<CommentResponseDto> updateComment(
-            @PathVariable("id") long commentId,  // 경로 변수 이름 수정
+            @PathVariable("id") long commentId,
             @RequestBody CommentRequestDto requestDto) {
         CommentResponseDto responseDto = commentService.updateComment(commentId, requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    //일정 삭제
+    // 댓글 삭제
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteComment(@PathVariable("id") long commentId) {  // 파라미터 수정
+    public ResponseEntity<Void> deleteComment(@PathVariable("id") long commentId) {
         commentService.deleteComment(commentId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

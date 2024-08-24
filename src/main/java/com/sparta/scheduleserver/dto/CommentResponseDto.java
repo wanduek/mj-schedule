@@ -1,9 +1,7 @@
 package com.sparta.scheduleserver.dto;
 
 import com.sparta.scheduleserver.entity.Comment;
-import com.sparta.scheduleserver.entity.User;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 

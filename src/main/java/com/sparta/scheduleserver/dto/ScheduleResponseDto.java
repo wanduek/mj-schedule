@@ -1,6 +1,6 @@
 package com.sparta.scheduleserver.dto;
 
-import com.sparta.scheduleserver.entity.User;
+import com.sparta.scheduleserver.entity.Schedule;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -14,7 +14,7 @@ public class ScheduleResponseDto {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 
-    public ScheduleResponseDto(User user) {
+    public ScheduleResponseDto(Schedule user) {
         this.username = user.getUsername();
         this.title = user.getTitle();
         this.content = user.getContent();

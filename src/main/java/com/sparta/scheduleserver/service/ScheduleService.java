@@ -2,23 +2,22 @@ package com.sparta.scheduleserver.service;
 
 import com.sparta.scheduleserver.dto.ScheduleRequestDto;
 import com.sparta.scheduleserver.dto.ScheduleResponseDto;
-import com.sparta.scheduleserver.entity.User;
-import com.sparta.scheduleserver.repository.UserRepository;
+import com.sparta.scheduleserver.entity.Schedule;
+import com.sparta.scheduleserver.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.reactive.TransactionalOperator;
 
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class ScheduleService {
 
-    private final UserRepository userRepository;
+    private final ScheduleRepository scheduleRepository;
 
     public ScheduleResponseDto getScheduleById(long id) {
-        Optional<User> userOptional = userRepository.findById(id);
+        Optional<Schedule> userOptional = scheduleRepository.findById(id);
         if (userOptional.isPresent()) {
             return new ScheduleResponseDto(userOptional.get());
         } else {
@@ -26,23 +25,22 @@ public class UserService {
         }
     }
 
-
     @Transactional
     public ScheduleResponseDto createSchedule(ScheduleRequestDto requestDto) {
-        User user = new User(
+        Schedule schedule = new Schedule(
                 requestDto.getUsername(),
                 requestDto.getTitle(),
                 requestDto.getContent()
         );
-        userRepository.save(user);
-        return new ScheduleResponseDto(user);
+        scheduleRepository.save(schedule);
+        return new ScheduleResponseDto(schedule);
     }
 
     public ScheduleResponseDto updateSchedule(long id, ScheduleRequestDto requestDto) {
-        User user = userRepository.findById(id)
+        Schedule schedule = scheduleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("유저의 아이디를 찾을 수 없습니다.: " + id));
-        user.update(requestDto.getTitle(), requestDto.getContent());
-        userRepository.save(user);
-        return new ScheduleResponseDto(user);
+        schedule.update(requestDto.getTitle(), requestDto.getContent());
+        scheduleRepository.save(schedule);
+        return new ScheduleResponseDto(schedule);
     }
 }
