@@ -25,11 +25,12 @@ public class ScheduleController {
     //댓글 개수,페이지 조회
     @GetMapping
     public ResponseEntity<Page<ScheduleResponseDto>> getSchedules(
-            @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "10") int size){
+            @RequestParam(value = "page", defaultValue = "0") int page, //페이지 번호는 0부터 시작
+            @RequestParam(value = "size", defaultValue = "10") int size) // 기본 페이지 크기는 10으로 설정함
+    {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "updatedDate"));
         Page<ScheduleResponseDto> schedulePage = scheduleService.getSchedules(pageable);
-
+        // ScheduleService.getSchedules(pageable)에서 반환된 Page<ScheduleResponseDto>는 페이지네이션과 정렬이 적용된 데이터를 제공한다.
         return new ResponseEntity<>(schedulePage, HttpStatus.OK);
     }
 
@@ -55,4 +56,14 @@ public class ScheduleController {
         ScheduleResponseDto responseDto = scheduleService.updateSchedule(id, requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
+
+    //일정 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSchedule(
+            @PathVariable("id") long id){
+        scheduleService.deleteSchedule(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
 }

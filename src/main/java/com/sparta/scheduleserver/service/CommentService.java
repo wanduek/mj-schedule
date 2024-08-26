@@ -43,6 +43,7 @@ public class CommentService {
                 return new CommentResponseDto(comment);
     }
 
+    // 댓글 수정
     @Transactional
     public CommentResponseDto updateComment(long commentId, CommentRequestDto responseDto){
         Comment comment = commentRepository.findByCommentId(commentId)

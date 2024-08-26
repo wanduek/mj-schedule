@@ -18,8 +18,9 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
-    private String username;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id", nullable = false)
+    private User author;
 
     @Column(nullable = false)
     private String title;
@@ -30,11 +31,14 @@ public class Schedule {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 
-    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments = new ArrayList<>();
+    @OneToMany(mappedBy = "schedule", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>(); // comment를 List에 저장
+    @OneToMany(mappedBy = "schedule", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    private List<UserSchedule> userSchedules = new ArrayList<>();
 
-    public Schedule(String username, String title, String content) {
-        this.username = username;
+
+    public Schedule(User author, String title, String content) {
+        this.author = author;
         this.title = title;
         this.content = content;
         this.createdDate = LocalDateTime.now();
@@ -47,15 +51,13 @@ public class Schedule {
         this.updatedDate = LocalDateTime.now();
     }
 
-    // 댓글 추가 메서드
-    public void addComment(Comment comment){
-        comments.add(comment);
-        comment.setSchedule(this);
+    public void addUserSchedule(UserSchedule userSchedule) {
+        this.userSchedules.add(userSchedule);
+        userSchedule.setSchedule(this);
     }
 
-    // 댓글 제거 메서드
-    public void removeComment(Comment comment){
-        comments.remove(comment);
-        comment.setSchedule(null);
+    public void removeUserSchedule(UserSchedule userSchedule) {
+        this.userSchedules.remove(userSchedule);
+        userSchedule.setSchedule(null);
     }
 }
