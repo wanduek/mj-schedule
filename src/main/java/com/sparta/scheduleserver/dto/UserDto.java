@@ -6,8 +6,7 @@ import lombok.Getter;
 
 @Getter
 public class UserDto {
-
-
+    
     private final Long userId;
     private final String username;
     private final String email;

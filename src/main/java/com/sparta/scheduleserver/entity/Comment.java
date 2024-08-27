@@ -28,7 +28,7 @@ public class Comment {
     // 현재 엔티티와 연관된 다른 엔티티 간의 외래 키를 정의함,
     @JoinColumn(name = "schedule_id", nullable = false)
     // name = "schedule_id" : 현재 엔티티가 참조하는 부모 엔티티의 기본 키를 저장함
-    //  nullable = false : 외래 키 컬럼이 'NULL값을 허용하지 않음 - 무결성 유지
+    // nullable = false : 외래 키 컬럼이 'NULL값을 허용하지 않음 - 무결성 유지
     private Schedule schedule;
 
     private LocalDateTime createdDate;

@@ -4,7 +4,6 @@ import com.sparta.scheduleserver.dto.UserRequestDto;
 import com.sparta.scheduleserver.dto.UserResponseDto;
 import com.sparta.scheduleserver.entity.User;
 import com.sparta.scheduleserver.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,8 +53,6 @@ public class UserService {
     public void deleteUser(long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("유저 아이디를 찾을 수 없습니다.: " + id));
-
-        // 연관된 UserSchedule 엔티티 삭제 (CascadeType 설정에 따라 자동으로 삭제될 수도 있음)
         userRepository.delete(user);
     }
 }

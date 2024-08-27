@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 @Entity
 @Getter
@@ -19,7 +18,7 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY ) // 명시적으로 LAZY 로딩 설정
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
 
@@ -37,7 +36,6 @@ public class Schedule {
     @OneToMany(mappedBy = "schedule", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     private List<UserSchedule> userSchedules = new ArrayList<>();
 
-
     public Schedule(User author , String title, String content) {
         this.author = author;
         this.title = title;
@@ -50,15 +48,5 @@ public class Schedule {
         this.title = title;
         this.content = content;
         this.updatedDate = LocalDateTime.now();
-    }
-
-    public void addUserSchedule(UserSchedule userSchedule) {
-        this.userSchedules.add(userSchedule);
-        userSchedule.setSchedule(this);
-    }
-
-    public void removeUserSchedule(UserSchedule userSchedule) {
-        this.userSchedules.remove(userSchedule);
-        userSchedule.setSchedule(null);
     }
 }

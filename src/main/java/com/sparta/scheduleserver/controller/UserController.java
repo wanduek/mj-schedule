@@ -27,6 +27,9 @@ public class UserController {
     //일정 조회 단건
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> getUser(@PathVariable long id) {
+        if(id <= 0){
+            throw new IllegalArgumentException("유효한 유저 아이디가 아님." + id);
+        }
         UserResponseDto responseDto = userService.getUserById(id);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }

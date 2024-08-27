@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Getter
 @Setter
@@ -24,9 +22,5 @@ public class UserSchedule {
     @ManyToOne
     @JoinColumn(name = "schedule_id", nullable = false)
     private Schedule schedule;
-    
-    public UserSchedule(User user, Schedule schedule) {
-        this.user = user;
-        this.schedule = schedule;
-    }
+
 }
