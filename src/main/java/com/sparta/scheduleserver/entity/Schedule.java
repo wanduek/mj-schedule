@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 @Entity
 @Getter
@@ -18,7 +19,7 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
 
@@ -37,7 +38,7 @@ public class Schedule {
     private List<UserSchedule> userSchedules = new ArrayList<>();
 
 
-    public Schedule(User author, String title, String content) {
+    public Schedule(User author , String title, String content) {
         this.author = author;
         this.title = title;
         this.content = content;

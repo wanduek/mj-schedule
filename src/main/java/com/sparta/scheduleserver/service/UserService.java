@@ -14,7 +14,6 @@ public class UserService {
     private final UserRepository userRepository;
 
     // 생성자 주입
-    @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

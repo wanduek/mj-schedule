@@ -42,7 +42,7 @@ public class UserController {
 
     //일정 삭제
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSchedule(
+    public ResponseEntity<Void> deleteUser(
             @PathVariable("id") long id){
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

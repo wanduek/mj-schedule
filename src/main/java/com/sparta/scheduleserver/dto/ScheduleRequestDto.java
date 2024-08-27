@@ -8,9 +8,9 @@ import lombok.Setter;
 @Setter
 //일정 요청 클래스
 public class ScheduleRequestDto {
-    private Long id; // schedule 고유아이디
-    private User author; // 일정 아이디 등록
+    private Long authorId;// 유저id에서 받아온 id
     private String title; // 일정 제목
     private String content; // 일정 내용
+
 }
 

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class ScheduleResponseDto {
 
     private Long id;
-    private User author;
+    private UserDto author;
     private String title;
     private String content;
     private LocalDateTime createdDate;
@@ -21,7 +21,7 @@ public class ScheduleResponseDto {
     // 일정 응답 생성자
     public ScheduleResponseDto(Schedule schedule) {
         this.id = schedule.getId();
-        this.author = schedule.getAuthor();
+        this.author = new UserDto(schedule.getAuthor());
         this.title = schedule.getTitle();
         this.content = schedule.getContent();
         this.createdDate = schedule.getCreatedDate(); // 일정 등록일
