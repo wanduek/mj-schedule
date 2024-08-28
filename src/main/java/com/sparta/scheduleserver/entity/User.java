@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@Table(name = "users")  // "user"는 SQL에서 예약어이므로 "users"로 테이블 이름을 바꿀 수 있습니다.
+@Table(name = "users")
 @NoArgsConstructor
 public class User {
 
@@ -20,6 +20,9 @@ public class User {
 
     @Column(nullable = false)
     private String username;
+
+    @Column(nullable = false)
+    private String password;
 
     @Column(nullable = false)
     private String email;
@@ -33,17 +36,22 @@ public class User {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 
-    public User(String username, String email) {
+    public User(String username ,String password,  String email) {
         this.username = username;
+        this.password = password;
         this.email = email;
         this.createdDate = LocalDateTime.now();
         this.updatedDate = LocalDateTime.now();
     }
 
     // 유저 정보 수정
-    public void update(String username, String email) {
+    public void update(String username, String password, String email) {
         this.username = username;
+        this.password = password;
         this.email = email;
         this.updatedDate = LocalDateTime.now();
+    }
+
+    public void setPassword(String encodedPassword) {
     }
 }

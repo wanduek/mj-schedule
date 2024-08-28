@@ -36,20 +36,20 @@ public class ScheduleService {
     }
 
     // 전체 일정 조회
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ScheduleExceptionAuthorDto> getAllSchedules(){
-        List<Schedule> schedules = scheduleRepository.findAll();
-        List<ScheduleExceptionAuthorDto> dtoList1 = new ArrayList<>();
+        List<Schedule> scheduleList = scheduleRepository.findAll();
+        List<ScheduleExceptionAuthorDto> scheduleInquiry = new ArrayList<>();
 
-        for(Schedule s: schedules){
+        for(Schedule s: scheduleList){
             ScheduleExceptionAuthorDto dto = new ScheduleExceptionAuthorDto(
                     s.getId(),
                     s.getTitle(),
                     s.getContent()
             );
-            dtoList1.add(dto);
+            scheduleInquiry.add(dto);
         }
-        return dtoList1;
+        return scheduleInquiry;
     }
 
     // 일정 등록 메서드
@@ -89,7 +89,8 @@ public class ScheduleService {
     // 페이지네이션된 결과 조회
     @Transactional(readOnly = true) //메서드 내에서 데이터베이스와의 상호작용이 읽기 전용
     public Page<ScheduleResponseDto> getSchedules(Pageable pageable) {
-        Page<Schedule> schedules = scheduleRepository.findAll(pageable);//Schedule 엔티티의 모든 데이터를 페이징하여 조회
+        //Schedule 엔티티의 모든 데이터를 페이징하여 조회
+        Page<Schedule> schedules = scheduleRepository.findAll(pageable);
         List<ScheduleResponseDto> dtoList = new ArrayList<>();
 
         for (Schedule schedule : schedules.getContent()){

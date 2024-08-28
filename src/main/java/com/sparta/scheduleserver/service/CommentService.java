@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CommentService {
 
     private final CommentRepository commentRepository;
@@ -27,6 +28,8 @@ public class CommentService {
         if (commentOptional.isPresent()) {
             return new CommentResponseDto(commentOptional.get());
         } else {
+
+            //enum으로 관리
             throw new RuntimeException("댓글아이디를 찾을 수 없습니다." + commentId);
         }
     }
@@ -34,7 +37,7 @@ public class CommentService {
     // 댓글 등록 값 반환
     @Transactional
     public CommentResponseDto createComment(CommentRequestDto requestDto){
-        Long id = requestDto.getId();
+        Long id = requestDto.getId(); //변수명은 가독성 좋게
         Schedule schedule = scheduleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("일정 아이디를 찾을 수 없습니다." + id));
         Comment comment = new Comment(
@@ -56,7 +59,7 @@ public class CommentService {
                 return new CommentResponseDto(comment);
     }
 
-    // 댓글 삭
+    // 댓글 삭제
     @Transactional
     public void deleteComment(long commentId) {
         Comment comment = commentRepository.findByCommentId(commentId)

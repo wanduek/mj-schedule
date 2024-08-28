@@ -12,6 +12,7 @@ public class UserResponseDto {
 
     private Long id;
     private String username;
+    private String password;
     private String email;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
@@ -19,6 +20,7 @@ public class UserResponseDto {
     // 일정 응답 생성자
     public UserResponseDto(User user) {
         this.id = user.getUserId();
+        this.password = user.getPassword();
         this.username = user.getUsername();
         this.email = user.getEmail();
         this.createdDate = user.getCreatedDate(); // 일정 등록일

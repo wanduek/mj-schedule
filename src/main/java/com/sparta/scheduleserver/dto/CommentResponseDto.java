@@ -21,3 +21,11 @@ public class CommentResponseDto {
         this.updatedDate = comment.getUpdatedDate();
     }
 }
+
+
+// 이팩티브 자바 1장
+
+//public static CommentResponseDto entityToDto(Comment comment){
+//return enw CommentResponseDto(comment)
+//    }
+
