@@ -8,7 +8,7 @@
 <img width="925" alt="스크린샷 2024-08-29 오전 1 08 08" src="https://github.com/user-attachments/assets/aaac3c55-da89-41f2-a6a1-10fb13b910bd">
 
 <pre>
-  ##ERD 
+  ERD 
 </pre>
 ![Untitled](https://github.com/user-attachments/assets/504172b8-4d88-4759-a537-cc3e130f98f6)
 
