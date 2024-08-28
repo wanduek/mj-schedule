@@ -20,6 +20,8 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final ScheduleRepository scheduleRepository;
 
+
+    // 댓글 조회 메서드
     public CommentResponseDto getCommentById(long commentId) {
         Optional<Comment> commentOptional = commentRepository.findByCommentId(commentId);
         if (commentOptional.isPresent()) {
@@ -29,6 +31,7 @@ public class CommentService {
         }
     }
 
+    // 댓글 등록 값 반환
     @Transactional
     public CommentResponseDto createComment(CommentRequestDto requestDto){
         Long id = requestDto.getId();
@@ -53,10 +56,11 @@ public class CommentService {
                 return new CommentResponseDto(comment);
     }
 
+    // 댓글 삭
     @Transactional
     public void deleteComment(long commentId) {
         Comment comment = commentRepository.findByCommentId(commentId)
                 .orElseThrow(() -> new RuntimeException("댓글 아이디를 찾을 수 없습니다.: " + commentId));
-        commentRepository.delete(comment);  // 엔티티로 삭제
+        commentRepository.delete(comment);
     }
 }

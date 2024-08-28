@@ -1,5 +1,6 @@
 package com.sparta.scheduleserver.controller;
 
+import com.sparta.scheduleserver.dto.ScheduleExceptionAuthorDto;
 import com.sparta.scheduleserver.dto.ScheduleRequestDto;
 import com.sparta.scheduleserver.dto.ScheduleResponseDto;
 import com.sparta.scheduleserver.entity.Schedule;
@@ -17,7 +18,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/schedule")
+@RequestMapping("/api/schedules")
 @RequiredArgsConstructor
 public class ScheduleController {
 
@@ -32,9 +33,8 @@ public class ScheduleController {
 
     // 전체 일정 조회
     @GetMapping("/all")
-    public ResponseEntity<List<ScheduleResponseDto>> getAllSchedules(){
-        List<ScheduleResponseDto> schedules = scheduleService.getAllSchedules();
-        System.out.println("확인 " + schedules); // 디버깅 로그
+    public ResponseEntity<List<ScheduleExceptionAuthorDto>> getAllSchedules(){
+        List<ScheduleExceptionAuthorDto> schedules = scheduleService.getAllSchedules();
         return new ResponseEntity<>(schedules, HttpStatus.OK);
     }
 
@@ -72,6 +72,17 @@ public class ScheduleController {
         Page<ScheduleResponseDto> schedulePage = scheduleService.getSchedules(pageable);
         // ScheduleService.getSchedules(pageable)에서 반환된 Page<ScheduleResponseDto>는 페이지네이션과 정렬이 적용된 데이터를 제공한다.
         return new ResponseEntity<>(schedulePage, HttpStatus.OK);
+
     }
 
+    //담당 유저 등록
+    @PostMapping("/{scheduleId}/assign")
+    public ResponseEntity<Void> assignUsersToSchedule(
+            @PathVariable Long scheduleId,
+            @RequestBody List<Long> userIds)
+    {
+        scheduleService.assignUsersToSchedule(scheduleId, userIds);
+        return ResponseEntity.ok().build();
+        //성공시 :HTTPstatus 200반환, build를 통해 body없이 클라이언트에게 응답을 보냄
+    }
 }

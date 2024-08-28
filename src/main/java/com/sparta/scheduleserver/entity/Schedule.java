@@ -31,9 +31,9 @@ public class Schedule {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 
-    @OneToMany(mappedBy = "schedule", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
-    private List<Comment> comments = new ArrayList<>(); // comment를 List에 저장
-    @OneToMany(mappedBy = "schedule", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    @OneToMany(mappedBy = "schedule", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Comment> comments = new ArrayList<>();
+    @OneToMany(mappedBy = "schedule", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<UserSchedule> userSchedules = new ArrayList<>();
 
     public Schedule(User author , String title, String content) {
@@ -44,7 +44,7 @@ public class Schedule {
         this.updatedDate = LocalDateTime.now();
     }
 
-    public void update(String title, String content) {
+    public void update(Long authorId, String title, String content) {
         this.title = title;
         this.content = content;
         this.updatedDate = LocalDateTime.now();

@@ -19,7 +19,7 @@ public class UserController {
 
     //일정 등록
     @PostMapping
-    public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto requestDto) {
+    public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto requestDto) { //ResponseEntity로 HTTP 상태 코드, 헤더, 응답 본문 등 응답처리 가능.
         UserResponseDto responseDto = userService.createUser(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
@@ -27,9 +27,6 @@ public class UserController {
     //일정 조회 단건
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> getUser(@PathVariable long id) {
-        if(id <= 0){
-            throw new IllegalArgumentException("유효한 유저 아이디가 아님." + id);
-        }
         UserResponseDto responseDto = userService.getUserById(id);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
