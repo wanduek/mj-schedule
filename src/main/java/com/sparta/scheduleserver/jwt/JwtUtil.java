@@ -1,5 +1,6 @@
 package com.sparta.scheduleserver.jwt;
 
+import com.sparta.scheduleserver.error.ErrorCode;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -78,8 +79,8 @@ public class JwtUtil {
         if (StringUtils.hasText(tokenValue) && tokenValue.startsWith(BEARER_PREFIX)) {
             return tokenValue.substring(7);
         }
-        logger.error("토큰을 찾을 수 없음");
-        throw new NullPointerException("토큰은 찾을 수 없음");
+        logger.error(ErrorCode.INVALID_TOKEN.getMessage());
+        throw new NullPointerException(ErrorCode.INVALID_TOKEN.getMessage());
     }
 
     // 토큰 검증
@@ -88,13 +89,13 @@ public class JwtUtil {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (SecurityException | MalformedJwtException | SignatureException e) {
-            logger.error("유효하지 않는 JWT 서명 입니다.");
+            logger.error(ErrorCode.INVALID_TOKEN.getMessage());
         } catch (ExpiredJwtException e) {
-            logger.error("만료된 JWT token 입니다.");
+            logger.error(ErrorCode.TOKEN_EXPIRED.getMessage());
         } catch (UnsupportedJwtException e) {
-            logger.error("지원되지 않는 JWT 토큰 입니다.");
+            logger.error(ErrorCode.TOKEN_CREATION_FAILED.getMessage());
         } catch (IllegalArgumentException e) {
-            logger.error("잘못된 JWT 토큰 입니다.");
+            logger.error(ErrorCode.INVALID_TOKEN.getMessage());
         }
         return false;
     }

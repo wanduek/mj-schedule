@@ -7,6 +7,7 @@ import com.sparta.scheduleserver.dto.UserDto;
 import com.sparta.scheduleserver.entity.Schedule;
 import com.sparta.scheduleserver.entity.User;
 import com.sparta.scheduleserver.entity.UserSchedule;
+import com.sparta.scheduleserver.error.ErrorCode;
 import com.sparta.scheduleserver.repository.ScheduleRepository;
 import com.sparta.scheduleserver.repository.UserRepository;
 import com.sparta.scheduleserver.repository.UserScheduleRepository;
@@ -31,7 +32,7 @@ public class ScheduleService {
     // 일정 조회 메서드
     public ScheduleResponseDto getScheduleById(long id) {
         Schedule schedule = scheduleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("일정 아이디를 찾을 수 없습니다: " + id));
+                .orElseThrow(() -> new RuntimeException(ErrorCode.USER_NOT_FOUND.getMessage() + id));
         return new ScheduleResponseDto(schedule);
     }
 
@@ -57,7 +58,7 @@ public class ScheduleService {
     public ScheduleResponseDto createSchedule(ScheduleRequestDto requestDto) {
         Long authorId = requestDto.getAuthorId();  // 작성자의 ID를 가져옴
         User author = userRepository.findById(authorId)
-                .orElseThrow(() -> new RuntimeException("작성자를 찾을 수 없습니다: " + authorId));  // 작성자 조회
+                .orElseThrow(() -> new RuntimeException(ErrorCode.USER_NOT_FOUND.getMessage() + authorId));  // 작성자 조회
         // 작성자를 포함한 스케줄 생성
         Schedule schedule = new Schedule(
                 author,
@@ -72,7 +73,7 @@ public class ScheduleService {
     @Transactional
     public ScheduleResponseDto updateSchedule(long id, ScheduleRequestDto requestDto) {
         Schedule schedule = scheduleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("일정을 찾을 수 없습니다: " + id));
+                .orElseThrow(() -> new RuntimeException(ErrorCode.SCHEDULE_NOT_FOUND.getMessage() + id));
         schedule.update(requestDto.getAuthorId() ,requestDto.getTitle(), requestDto.getContent());
         scheduleRepository.save(schedule);
         return new ScheduleResponseDto(schedule);
@@ -82,7 +83,7 @@ public class ScheduleService {
     @Transactional
     public void deleteSchedule(long id) {
         Schedule schedule = scheduleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("일정을 찾을 수 없습니다: " + id));
+                .orElseThrow(() -> new RuntimeException(ErrorCode.SCHEDULE_NOT_FOUND.getMessage() + id));
         scheduleRepository.delete(schedule);
     }
 
@@ -103,11 +104,11 @@ public class ScheduleService {
     @Transactional
     public void assignUsersToSchedule(Long scheduleId, List<Long> userIds){
         Schedule schedule = scheduleRepository.findById(scheduleId)
-                .orElseThrow(() -> new IllegalArgumentException("일정을 찾을 수 없습니다."));
+                .orElseThrow(() -> new IllegalArgumentException(ErrorCode.SCHEDULE_NOT_FOUND.getMessage()));
 
         for(Long userId : userIds){
             User user = userRepository.findById(userId)
-                    .orElseThrow(() -> new IllegalArgumentException("유저가 없습니다."));
+                    .orElseThrow(() -> new IllegalArgumentException(ErrorCode.USER_NOT_FOUND.getMessage()));
 
             UserSchedule userSchedule = new UserSchedule();
             userSchedule.setUser(user);

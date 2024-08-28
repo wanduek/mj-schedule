@@ -4,6 +4,7 @@ import com.sparta.scheduleserver.config.PasswordEncoder;
 import com.sparta.scheduleserver.dto.UserRequestDto;
 import com.sparta.scheduleserver.dto.UserResponseDto;
 import com.sparta.scheduleserver.entity.User;
+import com.sparta.scheduleserver.error.ErrorCode;
 import com.sparta.scheduleserver.jwt.JwtUtil;
 import com.sparta.scheduleserver.repository.ScheduleRepository;
 import com.sparta.scheduleserver.repository.UserRepository;
@@ -45,7 +46,7 @@ public class UserService {
         String username = requestDto.getUsername();
         Optional<User> checkUsername = userRepository.findByUsername(username);
         if(checkUsername.isPresent()){
-            throw new IllegalArgumentException("중복되는 사용자입니다.");
+            throw new IllegalArgumentException(ErrorCode.USER_ALREADY_EXISTS.getMessage());
         }
 
         String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
@@ -54,7 +55,7 @@ public class UserService {
         String email = requestDto.getEmail();
         Optional<User> checkEmail = userRepository.findByEmail(email);
         if(checkEmail.isPresent()){
-            throw new IllegalArgumentException("중복된 Email입니다.");
+            throw new IllegalArgumentException(ErrorCode.EMAIL_ALREADY_EXISTS.getMessage());
         }
 
         User user = new User(username, encodedPassword, email);
@@ -66,7 +67,7 @@ public class UserService {
     @Transactional
     public UserResponseDto updateUser(long id, UserRequestDto requestDto) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("유저 아이디를 찾을 수 없습니다.: " + id));
+                .orElseThrow(() -> new RuntimeException(ErrorCode.USER_NOT_FOUND.getMessage() + id));
 
         if(requestDto.getPassword() !=null){
             String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
@@ -84,7 +85,7 @@ public class UserService {
     @Transactional
     public void deleteUser(long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("유저 아이디를 찾을 수 없습니다.: " + id));
+                .orElseThrow(() -> new RuntimeException(ErrorCode.USER_NOT_FOUND.getMessage() + id));
         userRepository.delete(user);
     }
 

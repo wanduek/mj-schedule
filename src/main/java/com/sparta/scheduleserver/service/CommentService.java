@@ -4,6 +4,7 @@ import com.sparta.scheduleserver.dto.CommentRequestDto;
 import com.sparta.scheduleserver.dto.CommentResponseDto;
 import com.sparta.scheduleserver.entity.Comment;
 import com.sparta.scheduleserver.entity.Schedule;
+import com.sparta.scheduleserver.error.ErrorCode;
 import com.sparta.scheduleserver.repository.CommentRepository;
 import com.sparta.scheduleserver.repository.ScheduleRepository;
 import jakarta.transaction.Transactional;
@@ -28,9 +29,7 @@ public class CommentService {
         if (commentOptional.isPresent()) {
             return new CommentResponseDto(commentOptional.get());
         } else {
-
-            //enum으로 관리
-            throw new RuntimeException("댓글아이디를 찾을 수 없습니다." + commentId);
+            throw new RuntimeException(ErrorCode.USER_NOT_FOUND.getMessage() + commentId);
         }
     }
 
@@ -39,7 +38,7 @@ public class CommentService {
     public CommentResponseDto createComment(CommentRequestDto requestDto){
         Long id = requestDto.getId(); //변수명은 가독성 좋게
         Schedule schedule = scheduleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("일정 아이디를 찾을 수 없습니다." + id));
+                .orElseThrow(() -> new RuntimeException(ErrorCode.USER_NOT_FOUND.getMessage() + id));
         Comment comment = new Comment(
                 requestDto.getUsername(),
                 requestDto.getCommentContent(),
@@ -53,7 +52,7 @@ public class CommentService {
     @Transactional
     public CommentResponseDto updateComment(long commentId, CommentRequestDto responseDto){
         Comment comment = commentRepository.findByCommentId(commentId)
-                .orElseThrow(() -> new RuntimeException("댓글아이디를 찾을 수 없습니다.: " + commentId));
+                .orElseThrow(() -> new RuntimeException(ErrorCode.USER_NOT_FOUND.getMessage() + commentId));
                 comment.update(responseDto.getCommentContent());
                 commentRepository.save(comment);
                 return new CommentResponseDto(comment);
@@ -63,7 +62,7 @@ public class CommentService {
     @Transactional
     public void deleteComment(long commentId) {
         Comment comment = commentRepository.findByCommentId(commentId)
-                .orElseThrow(() -> new RuntimeException("댓글 아이디를 찾을 수 없습니다.: " + commentId));
+                .orElseThrow(() -> new RuntimeException(ErrorCode.USER_NOT_FOUND.getMessage() + commentId));
         commentRepository.delete(comment);
     }
 }
