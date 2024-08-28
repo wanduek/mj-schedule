@@ -5,12 +5,12 @@
 <pre>
   API 명세서
 </pre>
-<img width="925" alt="스크린샷 2024-08-29 오전 1 08 08" src="https://github.com/user-attachments/assets/aaac3c55-da89-41f2-a6a1-10fb13b910bd">
+<img width="853" alt="스크린샷 2024-08-29 오전 4 06 39" src="https://github.com/user-attachments/assets/e02db3f7-6032-45f8-b089-9208cb0a829c">
 
 <pre>
   ERD 
 </pre>
-<img width="853" alt="스크린샷 2024-08-29 오전 4 06 39" src="https://github.com/user-attachments/assets/e02db3f7-6032-45f8-b089-9208cb0a829c">
+![Untitled](https://github.com/user-attachments/assets/ce67e6a4-0d24-494b-915f-cd197faccacb)
 
 
 
