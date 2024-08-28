@@ -3,7 +3,7 @@
 이 프로젝트는 사용자 관리와 일정 관리를 위한 Spring Boot 기반의 서버 애플리케이션입니다. 이 `README.md` 파일에서는 주요 클래스와 메서드, 필드의 기능을 설명합니다.
 
 <pre>
-  ##API 명세서
+  API 명세서
 </pre>
 <img width="925" alt="스크린샷 2024-08-29 오전 1 08 08" src="https://github.com/user-attachments/assets/aaac3c55-da89-41f2-a6a1-10fb13b910bd">
 
