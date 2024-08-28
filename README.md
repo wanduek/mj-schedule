@@ -39,21 +39,6 @@
   - **입력**: 사용자 ID (`long`)
   - **출력**: 없음 (HTTP 상태 코드 204)
 
-- **`loginUser(@RequestParam String username, @RequestParam String password, HttpServletResponse response)`**
-  - **기능**: 사용자의 로그인 요청을 처리하고 JWT 토큰을 생성하여 쿠키에 저장합니다.
-  - **입력**: 사용자 이름 (`String`), 비밀번호 (`String`)
-  - **출력**: JWT 토큰이 포함된 쿠키
-
-- **`getUserProfile(HttpServletRequest request)`**
-  - **기능**: JWT 토큰을 통해 사용자의 프로필 정보를 조회합니다.
-  - **입력**: HTTP 요청 (`HttpServletRequest`)
-  - **출력**: 사용자 이름 (`String`)
-
-- **`logout(HttpServletResponse response)`**
-  - **기능**: 사용자의 로그아웃 요청을 처리하고 JWT 쿠키를 삭제합니다.
-  - **입력**: HTTP 응답 (`HttpServletResponse`)
-  - **출력**: 로그아웃 성공 메시지 (`String`)
-
 ## 2. `UserService`
 
 `UserService`는 사용자 관련 비즈니스 로직을 처리합니다.
@@ -84,11 +69,6 @@
   - **기능**: 특정 ID를 가진 사용자를 삭제합니다.
   - **입력**: 사용자 ID (`long`)
   - **출력**: 없음
-
-- **`loginUser(String username, String password)`**
-  - **기능**: 사용자의 로그인 요청을 처리하고 JWT 토큰을 생성합니다.
-  - **입력**: 사용자 이름 (`String`), 비밀번호 (`String`)
-  - **출력**: JWT 토큰 (`String`)
 
 ## 3. `JwtUtil`
 
