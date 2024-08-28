@@ -4,6 +4,7 @@ import com.sparta.scheduleserver.entity.User;
 import lombok.Getter;
 
 @Getter
+//user객체의 일부 속성을 클라이언트에게 노출하기 위한 클래스
 public class UserDto {
     
     private final Long userId;

@@ -26,14 +26,14 @@ public class UserService {
     // 유저 아이디 조회
     public UserResponseDto getUserById(long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("유저 아이디를 찾을 수 없습니다.: " + id));
+                .orElseThrow(() -> new RuntimeException(ErrorCode.USER_NOT_FOUND.getMessage() + id));
         return new UserResponseDto(user);
     }
 
     // 사용자 프로필 조회 메서드
     public UserResponseDto getUserProfile(String username) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+                .orElseThrow(() -> new IllegalArgumentException(ErrorCode.USER_NOT_FOUND.getMessage()));
         return new UserResponseDto(user);
 
     }
@@ -87,6 +87,21 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException(ErrorCode.USER_NOT_FOUND.getMessage() + id));
         userRepository.delete(user);
+    }
+    // 로그인 메서드
+    @Transactional
+    public UserResponseDto authenticateUser(String email, String password) {
+        // 사용자 존재 확인
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException(ErrorCode.USER_NOT_FOUND.getMessage()));
+
+        // 비밀번호 확인
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new IllegalArgumentException(ErrorCode.INVALID_TOKEN.getMessage());
+        }
+
+        // 인증된 사용자 정보 반환
+        return new UserResponseDto(user);
     }
 
 }

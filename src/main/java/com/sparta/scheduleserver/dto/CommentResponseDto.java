@@ -25,7 +25,4 @@ public class CommentResponseDto {
 
 // 이팩티브 자바 1장
 
-//public static CommentResponseDto entityToDto(Comment comment){
-//return enw CommentResponseDto(comment)
-//    }
-
+//public static CommentResponseDto entityToDto(Comment comment){}

@@ -1,7 +1,6 @@
 package com.sparta.scheduleserver.controller;
 
-import com.sparta.scheduleserver.config.PasswordEncoder;
-import com.sparta.scheduleserver.dto.ScheduleRequestDto;
+import com.sparta.scheduleserver.dto.LoginRequestDto;
 import com.sparta.scheduleserver.dto.UserRequestDto;
 import com.sparta.scheduleserver.dto.UserResponseDto;
 import com.sparta.scheduleserver.jwt.JwtUtil;
@@ -14,10 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
-
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
@@ -26,24 +21,21 @@ public class UserController {
     private final UserService userService;
     private final JwtUtil jwtUtil;
 
-
-
-    //유저 등록
+    // 유저 등록
     @PostMapping
     public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto requestDto) {
-        //ResponseEntity로 HTTP 상태 코드, 헤더, 응답 본문 등 응답처리 가능.
         UserResponseDto responseDto = userService.createUser(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
-    //유저 조회 단건
+    // 유저 조회 단건
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> getUser(@PathVariable long id) {
         UserResponseDto responseDto = userService.getUserById(id);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    //유저 수정
+    // 유저 수정
     @PutMapping("/{id}")
     public ResponseEntity<UserResponseDto> updateUser(
             @PathVariable long id,
@@ -52,28 +44,27 @@ public class UserController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    //유저 삭제
+    // 유저 삭제
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(
-            @PathVariable("id") long id){
+    public ResponseEntity<Void> deleteUser(@PathVariable long id) {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    // 사용자 정보 추출
-    @GetMapping("/profile")
-    public ResponseEntity<String> getUserProfile(HttpServletRequest request) {
-        // 요청에서 JWT 토큰 추출
-        String token = jwtUtil.getTokenFromRequest(request);
+    // 로그인 엔드포인트
+    @PostMapping("/login")
+    public ResponseEntity<String> loginUser(
+            @RequestBody LoginRequestDto loginRequestDto,
+            HttpServletResponse response) {
+        // 사용자 인증 로직
+       userService.authenticateUser(loginRequestDto.getEmail(), loginRequestDto.getPassword());
 
-        if (token == null || !jwtUtil.validateToken(jwtUtil.substringToken(token))) {
-            return ResponseEntity.status(401).body("유효하지 않은 토큰입니다.");
-        }
+        // JWT 토큰 생성
+        String token = jwtUtil.createToken(loginRequestDto.getPassword());
 
-        // 토큰에서 사용자 정보 추출
-        String username = jwtUtil.getUserInfoFromToken(jwtUtil.substringToken(token)).getSubject();
+        // JWT 토큰을 쿠키에 추가
+        jwtUtil.addJwtToCookie(token, response);
 
-        // 사용자 정보 반환 (여기서는 간단하게 사용자 이름만 반환)
-        return ResponseEntity.ok("사용자 이름: " + username);
+        return ResponseEntity.ok("로그인 성공");
     }
 }
