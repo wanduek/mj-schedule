@@ -1,16 +1,15 @@
 package com.sparta.scheduleserver.service;
 
-import com.sparta.scheduleserver.dto.ScheduleExceptionAuthorDto;
-import com.sparta.scheduleserver.dto.ScheduleRequestDto;
-import com.sparta.scheduleserver.dto.ScheduleResponseDto;
-import com.sparta.scheduleserver.dto.UserDto;
-import com.sparta.scheduleserver.entity.Schedule;
-import com.sparta.scheduleserver.entity.User;
-import com.sparta.scheduleserver.entity.UserSchedule;
-import com.sparta.scheduleserver.error.ErrorCode;
-import com.sparta.scheduleserver.repository.ScheduleRepository;
-import com.sparta.scheduleserver.repository.UserRepository;
-import com.sparta.scheduleserver.repository.UserScheduleRepository;
+import com.sparta.scheduleserver.model.entity.dto.ScheduleExceptionAuthorDto;
+import com.sparta.scheduleserver.model.entity.dto.ScheduleRequestDto;
+import com.sparta.scheduleserver.model.entity.dto.ScheduleResponseDto;
+import com.sparta.scheduleserver.model.entity.Schedule;
+import com.sparta.scheduleserver.model.entity.User;
+import com.sparta.scheduleserver.model.entity.UserSchedule;
+import com.sparta.scheduleserver.model.entity.error.ErrorCode;
+import com.sparta.scheduleserver.model.entity.repository.ScheduleRepository;
+import com.sparta.scheduleserver.model.entity.repository.UserRepository;
+import com.sparta.scheduleserver.model.entity.repository.UserScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

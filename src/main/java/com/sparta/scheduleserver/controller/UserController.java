@@ -1,12 +1,10 @@
 package com.sparta.scheduleserver.controller;
 
-import com.sparta.scheduleserver.dto.LoginRequestDto;
-import com.sparta.scheduleserver.dto.UserRequestDto;
-import com.sparta.scheduleserver.dto.UserResponseDto;
-import com.sparta.scheduleserver.jwt.JwtUtil;
+import com.sparta.scheduleserver.model.entity.dto.LoginRequestDto;
+import com.sparta.scheduleserver.model.entity.dto.UserRequestDto;
+import com.sparta.scheduleserver.model.entity.dto.UserResponseDto;
+import com.sparta.scheduleserver.service.jwt.JwtUtil;
 import com.sparta.scheduleserver.service.UserService;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

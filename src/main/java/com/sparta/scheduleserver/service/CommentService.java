@@ -1,12 +1,12 @@
 package com.sparta.scheduleserver.service;
 
-import com.sparta.scheduleserver.dto.CommentRequestDto;
-import com.sparta.scheduleserver.dto.CommentResponseDto;
-import com.sparta.scheduleserver.entity.Comment;
-import com.sparta.scheduleserver.entity.Schedule;
-import com.sparta.scheduleserver.error.ErrorCode;
-import com.sparta.scheduleserver.repository.CommentRepository;
-import com.sparta.scheduleserver.repository.ScheduleRepository;
+import com.sparta.scheduleserver.model.entity.dto.CommentRequestDto;
+import com.sparta.scheduleserver.model.entity.dto.CommentResponseDto;
+import com.sparta.scheduleserver.model.entity.Comment;
+import com.sparta.scheduleserver.model.entity.Schedule;
+import com.sparta.scheduleserver.model.entity.error.ErrorCode;
+import com.sparta.scheduleserver.model.entity.repository.CommentRepository;
+import com.sparta.scheduleserver.model.entity.repository.ScheduleRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 

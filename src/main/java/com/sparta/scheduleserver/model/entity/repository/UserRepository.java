@@ -1,7 +1,7 @@
-package com.sparta.scheduleserver.repository;
+package com.sparta.scheduleserver.model.entity.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.sparta.scheduleserver.entity.User;
+import com.sparta.scheduleserver.model.entity.User;
 
 import java.util.Optional;
 

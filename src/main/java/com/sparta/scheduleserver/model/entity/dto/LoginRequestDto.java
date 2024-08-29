@@ -1,4 +1,4 @@
-package com.sparta.scheduleserver.dto;
+package com.sparta.scheduleserver.model.entity.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

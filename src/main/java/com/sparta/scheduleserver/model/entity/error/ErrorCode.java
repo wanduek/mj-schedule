@@ -1,4 +1,4 @@
-package com.sparta.scheduleserver.error;
+package com.sparta.scheduleserver.model.entity.error;
 
 public enum ErrorCode {
 

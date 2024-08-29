@@ -1,7 +1,7 @@
 package com.sparta.scheduleserver.controller;
 
-import com.sparta.scheduleserver.dto.CommentRequestDto;
-import com.sparta.scheduleserver.dto.CommentResponseDto;
+import com.sparta.scheduleserver.model.entity.dto.CommentRequestDto;
+import com.sparta.scheduleserver.model.entity.dto.CommentResponseDto;
 import com.sparta.scheduleserver.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

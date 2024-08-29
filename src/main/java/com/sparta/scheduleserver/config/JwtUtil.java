@@ -1,6 +1,6 @@
-package com.sparta.scheduleserver.jwt;
+package com.sparta.scheduleserver.service.jwt;
 
-import com.sparta.scheduleserver.error.ErrorCode;
+import com.sparta.scheduleserver.model.entity.error.ErrorCode;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

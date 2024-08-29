@@ -1,9 +1,9 @@
-package com.sparta.scheduleserver.filter;
+package com.sparta.scheduleserver.service.filter;
 
 
-import com.sparta.scheduleserver.entity.User;
-import com.sparta.scheduleserver.jwt.JwtUtil;
-import com.sparta.scheduleserver.repository.UserRepository;
+import com.sparta.scheduleserver.model.entity.User;
+import com.sparta.scheduleserver.service.jwt.JwtUtil;
+import com.sparta.scheduleserver.model.entity.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,7 +33,7 @@ public class AuthFilter implements Filter {
         String url = httpServletRequest.getRequestURI();
 
         if (StringUtils.hasText(url) &&
-                (url.startsWith("/api/user") || url.startsWith("/css") || url.startsWith("/js"))
+                (url.startsWith("/api/user") )
         ) {
             log.info("인증 처리를 하지 않는 URL : " + url);
             // 회원가입, 로그인 관련 API 는 인증 필요없이 요청 진행

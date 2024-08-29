@@ -1,9 +1,8 @@
 package com.sparta.scheduleserver.controller;
 
-import com.sparta.scheduleserver.dto.ScheduleExceptionAuthorDto;
-import com.sparta.scheduleserver.dto.ScheduleRequestDto;
-import com.sparta.scheduleserver.dto.ScheduleResponseDto;
-import com.sparta.scheduleserver.entity.Schedule;
+import com.sparta.scheduleserver.model.entity.dto.ScheduleExceptionAuthorDto;
+import com.sparta.scheduleserver.model.entity.dto.ScheduleRequestDto;
+import com.sparta.scheduleserver.model.entity.dto.ScheduleResponseDto;
 import com.sparta.scheduleserver.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

@@ -1,13 +1,12 @@
 package com.sparta.scheduleserver.service;
 
 import com.sparta.scheduleserver.config.PasswordEncoder;
-import com.sparta.scheduleserver.dto.UserRequestDto;
-import com.sparta.scheduleserver.dto.UserResponseDto;
-import com.sparta.scheduleserver.entity.User;
-import com.sparta.scheduleserver.error.ErrorCode;
-import com.sparta.scheduleserver.jwt.JwtUtil;
-import com.sparta.scheduleserver.repository.ScheduleRepository;
-import com.sparta.scheduleserver.repository.UserRepository;
+import com.sparta.scheduleserver.model.entity.dto.UserRequestDto;
+import com.sparta.scheduleserver.model.entity.dto.UserResponseDto;
+import com.sparta.scheduleserver.model.entity.User;
+import com.sparta.scheduleserver.model.entity.error.ErrorCode;
+import com.sparta.scheduleserver.service.jwt.JwtUtil;
+import com.sparta.scheduleserver.model.entity.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

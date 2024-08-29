@@ -1,4 +1,4 @@
-package com.sparta.scheduleserver.entity;
+package com.sparta.scheduleserver.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
