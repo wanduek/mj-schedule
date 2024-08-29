@@ -5,7 +5,7 @@
 <pre>
   API 명세서
 </pre>
-<img width="853" alt="스크린샷 2024-08-29 오전 4 06 39" src="https://github.com/user-attachments/assets/e02db3f7-6032-45f8-b089-9208cb0a829c">
+![스크린샷 2024-08-29 오후 5 13 56](https://github.com/user-attachments/assets/6618e519-bb28-459e-970d-aa08c673c482)
 
 <pre>
   ERD 
